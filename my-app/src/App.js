@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Mocha, MainApp} from './main.js'
+import { MainApp} from './main.js'
 function Meh(){
   return (
     <p>govno</p>
@@ -15,7 +15,6 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <MainApp />
         <Meh />
-        <Mocha />
       </header>
     </div>
   );
