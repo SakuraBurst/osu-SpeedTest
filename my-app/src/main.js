@@ -12,6 +12,7 @@ class MainApp extends React.Component {
       this.firstButtonSeter = this.firstButtonSeter.bind(this);
       this.secondButtonSeter = this.secondButtonSeter.bind(this);
       this.numberOfClicksSeter = this.numberOfClicksSeter.bind(this)
+      //this.handleKeyPress = this.handleKeyPress.bind(this)
     }
     firstButtonSeter(e){
         this.setState({
@@ -29,11 +30,10 @@ class MainApp extends React.Component {
         })
     }
     /*timer(state){
-        let clickNumbers = 15
         let sec = 0;
         let timer = setInterval(() => {
         sec++
-        console.log(sec)
+        let test = true
         if (sec == clickNumbers){
             clearInterval(timer)
         }
@@ -42,7 +42,15 @@ class MainApp extends React.Component {
         this.setState({
             timerTest: sec
         })
-    }*/
+    }
+    if(test)
+    componentDidMount() {
+    document.addEventListener("keydown", this.handleKeyPress);
+    }
+    handleKeyPress(event, state){
+        if(String.fromCharCode(event.key) == state.firstButton || String.fromCharCode(event.key) == state.secondButton)
+    }
+    */
     render(){
       return(
           <div className="Osnova">
