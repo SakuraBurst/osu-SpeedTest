@@ -3,16 +3,43 @@ class MainApp extends React.Component {
     constructor(props){
       super(props)
       this.state = {
-          timerTest: 0,
+          timerOn: false,
+          timerStart: 0,
+          timerTime: 0,
           clickNumbers: 0,
           fitstButton: "",
-          secondButton: ""
+          secondButton: "",
+          streamTest1: '',
+          testState: false
       }
-      //this.timer = this.timer.bind(this)
+      
+      this.switch = this.switch.bind(this)
       this.firstButtonSeter = this.firstButtonSeter.bind(this);
       this.secondButtonSeter = this.secondButtonSeter.bind(this);
       this.numberOfClicksSeter = this.numberOfClicksSeter.bind(this)
-      //this.handleKeyPress = this.handleKeyPress.bind(this)
+      this.handleKeyPress = this.handleKeyPress.bind(this)
+      //this.setStateTest = this.setStateTest.bind(this)
+      this.startTimer = this.startTimer.bind(this)
+      this.stopTimer = this.stopTimer.bind(this)
+    }
+    //https://medium.com/@peterjd42/building-timers-in-react-stopwatch-and-countdown-bc06486560a2
+    startTimer(){
+        this.setState({
+            timerOn: true,
+            timerTime: this.state.timerTime,
+            timerStart: Date.now() - this.state.timerTime
+        });
+        this.timer = setInterval(() => {
+            this.setState({
+                timerTime: Date.now() - this.state.timerStart
+            })
+        }, 10);
+    }
+    stopTimer(){
+        this.setState({
+            timerOn: false
+        })
+        clearInterval(this.timer)
     }
     firstButtonSeter(e){
         this.setState({
@@ -29,11 +56,14 @@ class MainApp extends React.Component {
             clickNumbers: e.target.value
         })
     }
-    /*timer(state){
-        let sec = 0;
+    switch(){
+        this.setState((state) => ({
+            testState: !state.testState
+        }))
+        /*let sec = 0;
         let timer = setInterval(() => {
         sec++
-        let test = true
+        
         if (sec == clickNumbers){
             clearInterval(timer)
         }
@@ -41,17 +71,29 @@ class MainApp extends React.Component {
         
         this.setState({
             timerTest: sec
-        })
+        })*/
     }
-    if(test)
-    componentDidMount() {
-    document.addEventListener("keydown", this.handleKeyPress);
+
+    handleKeyPress(event){
+        this.startTimer()
+        if(event.key == this.state.fitstButton || event.key == this.state.secondButton){
+            this.setState({
+                streamTest1: this.state.streamTest1 + event.key
+            })
+        }
+        
     }
-    handleKeyPress(event, state){
-        if(String.fromCharCode(event.key) == state.firstButton || String.fromCharCode(event.key) == state.secondButton)
-    }
-    */
+  
+    //setStateTest(){
+        //this.setState({
+            //streamTest1: "u"
+        //})
+    //}
+    
     render(){
+        if(this.state.testState){
+            document.addEventListener("keydown", this.handleKeyPress); 
+        }
       return(
           <div className="Osnova">
               <h3>OSU SPEED TEST</h3>
@@ -70,10 +112,10 @@ class MainApp extends React.Component {
                     value={this.state.clickNumbers}
                     onChange={this.numberOfClicksSeter} />
               <br/>
-              <button onClick={this.timer}>Start</button>
+              {this.state.timerOn ? <button onClick={this.stopTimer}>Stop</button> : <button onClick={this.switch}>Start</button>}
               <h2>Your result</h2>
-              <p>Tap Speed: {this.state.fitstButton}/{this.state.secondButton}</p>
-              <p>Stream Speed: {this.state.timerTest}</p>
+              <p>Tap Speed: {this.state.fitstButton} taps/{this.state.timerTime} seconds</p>
+              <p>Stream Speed: {this.state.streamTest1}</p>
           </div>
       );
     }
