@@ -75,7 +75,9 @@ class MainApp extends React.Component {
     }
 
     handleKeyPress(event){
+        if(!this.state.timerOn){
         this.startTimer()
+        }
         if(event.key == this.state.fitstButton || event.key == this.state.secondButton){
             this.setState({
                 streamTest1: this.state.streamTest1 + event.key
