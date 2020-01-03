@@ -88,9 +88,9 @@ class MainApp extends React.Component {
         }
         if(event.key === this.state.fitstButton || event.key === this.state.secondButton){
            
-            this.setState({
-                streamTest1: this.state.streamTest1 + event.key
-            })
+            this.setState((state) => ({
+                streamTest1: state.streamTest1 + event.key
+            }))
         }
         if(this.state.streamTest1.length == this.state.clickNumbers){
             this.stopTimer()
@@ -108,7 +108,7 @@ class MainApp extends React.Component {
             document.removeEventListener("keydown", this.handleKeyPress);
         }
         if(this.state.timerOn){
-            this.state.bpm = Math.round(((((this.state.streamTest1.length) / (Date.now() - this.state.timerStart) * 60000)/4) * 100) / 100).toFixed(2)
+            this.state.bpm = Math.round((((this.state.streamTest1.length) / (Date.now() - this.state.timerStart) * 60000)/4) * 100) / 100
         }
       return(
           <div className="Osnova">
