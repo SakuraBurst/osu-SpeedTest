@@ -12,6 +12,8 @@ class MainApp extends React.Component {
           streamTest1: '',
           testState: false,
           bpm: 0
+          //buttonStartVision: true,
+          //buttonEndVision: false
       }
       
       this.switch = this.switch.bind(this)
